@@ -60,9 +60,11 @@ for i in range(3): # Рассчет сторон треугольника
     triangle.append(calc_distance(points[i], points[(i + 1) % 3]))
 
 S = calc_S(triangle[0], triangle[1], triangle[2]) # Считаем площадь треугольника
-if S == 0:
+
+if S == 0: # Проверяем образуют ли точки треугольник (Сравнение с константным нулем без eps корректно)
     print(error_2)
-    exit()
+    exit(-1)
+
 a, b, c = triangle[0], triangle[1], triangle[2] # Создаем копию сторон перед сортировкой
 
 triangle.sort() # Сортируем, чтобы найти наименьший угол напротив наименьшей стороны
