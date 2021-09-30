@@ -5,7 +5,7 @@
 # Булгаков Арсений Сергеевич ИУ7-16Б
 
 # Эпсилон для сравнения чисел с плавающей точкой
-EPS = 1e-5
+EPS = 1e-10
 
 # Сообщения об ошибках
 error = 'Ошибка: Точки должны быть различны!'
@@ -28,7 +28,8 @@ def calc_bisector(first_angle_side, second_angle_side, third_side) -> float:
 # Функция для проверки на прямоугольный треугольник
 # Принимает сначала наибольшую сторону треугольника, а затем две другие
 def right_triangle_checking(greatest_side, second_side, third_side) -> bool:
-    if greatest_side ** 2 - (second_side ** 2 + third_side ** 2) <= EPS:
+    print(greatest_side, second_side, third_side, greatest_side ** 2, second_side ** 2, third_side ** 2)
+    if abs(greatest_side ** 2 - (second_side ** 2 + third_side ** 2)) <= EPS:
         return True
     return False
 
@@ -60,17 +61,15 @@ for i in range(3): # Рассчет сторон треугольника
     triangle.append(calc_distance(points[i], points[(i + 1) % 3]))
 
 S = calc_S(triangle[0], triangle[1], triangle[2]) # Считаем площадь треугольника
-
 if S == 0: # Проверяем образуют ли точки треугольник (Сравнение с константным нулем без eps корректно)
     print(error_2)
     exit(-1)
 
 a, b, c = triangle[0], triangle[1], triangle[2] # Создаем копию сторон перед сортировкой
-
 triangle.sort() # Сортируем, чтобы найти наименьший угол напротив наименьшей стороны
 
 # Вывод треугольника с координатами для наглядности
-#print(f'\n          {points[1]}\n              /  \\\n             /    \\\n            /      \\\n  {points[0]} ------ {points[2]}\n')
+# print(f'\n          {points[1]}\n              /  \\\n             /    \\\n            /      \\\n  {points[0]} ------ {points[2]}\n')
 
 print(f'Стороны треугольника: {a:.5f} {b:.5f} {c:.5f}')
 print(f'Длинна биссектрисы: {calc_bisector(triangle[1], triangle[2], triangle[0]):.5f}') # Выводит длинну бисектриссы
@@ -91,8 +90,3 @@ if abs(S - sum_S) <= EPS:
     print(f'Минимальное расстояние до ближайшей стороны: {min_distance:.5f}')
 else:
     print('Точка снаружи треугольника')
-
-
-
-
-
