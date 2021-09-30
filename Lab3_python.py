@@ -7,14 +7,15 @@
 # Эпсилон для сравнения чисел с плавающей точкой
 EPS = 1e-5
 
+error = 'Ошибка: Точки должны быть различны!'
 # Функция для рассчета расттояния от точки до точки
-# Принимает кортежи координат точек, состоящих из координат
+# Принимает кортежи координат точек
 def calc_distance(first_point, second_point) -> float:
     distance = abs((second_point[0] - first_point[0]) ** 2 + (second_point[1] - first_point[1]) ** 2) ** (1 / 2)
     return distance
 
 # Функция для рассчета длинны бисектрисы
-# Принимает стороны угла и оставшуюся сторону
+# Принимает стороны угла, а затем оставшуюся
 def calc_bisector(first_angle_side, second_angle_side, third_side) -> float:
     length = (((first_angle_side * second_angle_side * (first_angle_side + second_angle_side - third_side)
                 * abs(third_side + second_angle_side + first_angle_side)) ** (1 / 2))
@@ -39,38 +40,37 @@ def calc_S(first_side, second_side, third_side) -> float:
 # Принимает просто стороны треугольника
 def calc_height(first_side, second_side, third_side) -> float:
     p = (first_side + second_side + third_side) / 2
-    height = (2 * abs(p * (p - first_side) * (p - second_side) * (p - third_side)) ** (1 / 2)) / third_side
+    height = (2 * (abs(p * (p - first_side) * (p - second_side) * (p - third_side)) ** (1 / 2))) / first_side
     return height
 
-# Массив точек
-points = []
-
+print('Все вводимые точки должны быть различны!')
+points = [] # Массив точек
 for i in range(3): # Ввод входных данных
-     points.append(tuple(map(float, input('Введите координаты точки X и Y: ').split(','))))
-
-# Рассчет сторон главного треугольника
+     points.append(tuple(map(float, input('Введите координаты точки X, Y: ').split(','))))
+     if points.count(points[i]) > 1:
+         print(error)
+         exit(1)
 
 # Массив сторон треугольника
 triangle = []
-for i in range(3): # Ввводим стороны считая расстояние до точек
+for i in range(3): # Рассчет сторон треугольника
     triangle.append(calc_distance(points[i], points[(i + 1) % 3]))
 
 S = calc_S(triangle[0], triangle[1], triangle[2]) # Считаем площадь треугольника
-
 a, b, c = triangle[0], triangle[1], triangle[2] # Создаем копию сторон перед сортировкой
 
 triangle.sort() # Сортируем, чтобы найти наименьший угол напротив наименьшей стороны
 
 # Вывод треугольника с координатами для наглядности
-print(f'\n          {points[1]}\n              /  \\\n             /    \\\n            /      \\\n  {points[0]} ------ {points[2]}\n')
+#print(f'\n          {points[1]}\n              /  \\\n             /    \\\n            /      \\\n  {points[0]} ------ {points[2]}\n')
 
-print(f'Стороны треугольника {a:.5f} {b:.5f} {c:.5f}')
-print(f'Длинна биссектрисы {calc_bisector(triangle[1], triangle[2], triangle[0]):.5f}') # Выводит длинну бисектриссы
+print(f'Стороны треугольника: {a:.5f} {b:.5f} {c:.5f}')
+print(f'Длинна биссектрисы: {calc_bisector(triangle[1], triangle[2], triangle[0]):.5f}') # Выводит длинну бисектриссы
 print('Это прямоугольный треугольник' if right_triangle_checking(triangle[2], triangle[1], triangle[0])
       else 'Это непрямоугольный треугольник') # Проверяет на прямоугольный треугольник
 
 # Вввод новой точки
-new_point = tuple(map(float, input('Введите координаты новой точки X и Y: ').split(',')))
+new_point = tuple(map(float, input('Введите координаты новой точки X, Y: ').split(',')))
 
 arr = [calc_distance(new_point, i) for i in points] # Проводим отрезки до точки
 sum_S = calc_S(a, arr[0], arr[1]) + calc_S(b, arr[1], arr[2]) + calc_S(c, arr[0], arr[2]) # Считаем площади появившехся треугольников
@@ -79,7 +79,7 @@ sum_S = calc_S(a, arr[0], arr[1]) + calc_S(b, arr[1], arr[2]) + calc_S(c, arr[0]
 if abs(S - sum_S) <= EPS:
     print('Точка внутри треугольника')
     # Считаем расстояние до сторон треугольника и берем минимальное
-    min_distance = min(calc_height(a, arr[0], arr[1]), calc_height(b, arr[1], arr[2]), calc_height(a, arr[0], arr[2]))
+    min_distance = min(calc_height(a, arr[0], arr[1]), calc_height(b, arr[1], arr[2]), calc_height(c, arr[0], arr[2]))
     print(f'Минимальное расстояние до ближайшей стороны: {min_distance:.5f}')
 else:
     print('Точка снаружи треугольника')
