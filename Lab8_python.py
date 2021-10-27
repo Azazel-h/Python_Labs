@@ -106,12 +106,12 @@ def del_string(arr, var) -> list:
     else:
         print('Ошибка: Некорректный индекс')
 
-# Поиск максимальрного средне арифмитического
-def max_avarage_search(arr) -> float:
-    max_avg = mean(arr[0])
+# Поиск строки с максимальным средне арифмитическим
+def max_avarage_search(arr) -> list:
+    max_avg = arr[0]
     for i in arr:
-        if mean(i) > max_avg:
-            max_avg = mean(i)
+        if mean(i) > mean(max_avg):
+            max_avg = i
     return max_avg
 
 # Свап строк с максимальным и минимальным количеством нулей
@@ -217,8 +217,8 @@ while True:
             del_column(arr, num)
         else:
             print('Ошибка! Нет такого варианта')
-    elif command == 6: # Поиска максимального средне арифмитического
-        print(f'Максимальное среднее арифметическое {max_avarage_search(arr):.5f}')
+    elif command == 6: # Поиска строки с максимальным средне арифметическим
+        print(f'Максимальное среднее арифметическое {max_avarage_search(arr)}')
     elif command == 7: # Свап строк с максимальным и минимальным количеством отриц. элементов
         arr = under_zero_min_max_strings_swap(arr)
         print('Теперь ваша матрица:')
