@@ -1,6 +1,7 @@
 # ВВОДИТСЯ МАССИВ СТРОК сделать частотный анализ латинских букв для каждого элемента
 import string
 
+
 def analyse(i) -> list:
     d = {}
     for c in i:
@@ -11,6 +12,7 @@ def analyse(i) -> list:
                 d[(c.lower())] += 1
     return sorted(d.items(), key=lambda x: x[1], reverse=True)
 
+
 n = int(input('Введите количество элементов: '))
 arr = []
 for i in range(n):
@@ -20,5 +22,3 @@ for i in arr:
     data = analyse(i)
     for i in data:
         print(i[0], ':', i[1])
-
-

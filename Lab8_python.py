@@ -13,10 +13,12 @@
 # Булгаков Арсений Сергеевич ИУ7-16Б
 from statistics import mean
 
+
 # Вывод матрицы
 def matrix_print(arr) -> None:
     for i in arr:
         print(*i)
+
 
 # Ввод матрицы
 def matrix_init() -> list:
@@ -32,15 +34,16 @@ def matrix_init() -> list:
         arr.append(new)
     return arr
 
+
 # Добавление строки
 def add_string(arr, var) -> list:
     index = int(input('Введите индекс для вставки строки: '))
-    if 0 <= index <= len(arr): # Проверка на некорректный индекс
+    if 0 <= index <= len(arr):  # Проверка на некорректный индекс
         new = []
         new = list(map(int, input(f'Введите новую строку через пробел: ').split()))
         while len(new) != len(arr[0]):
             print('Ошибка! Указанное количество элементов не соответсвует данному')
-            new = list(map(int, input(f'Введите строку №{i + 1} через пробел: ').split()))
+            new = list(map(int, input(f'Введите строку №{index + 1} через пробел: ').split()))
         if var == 1:
             arr += [0] * len(arr[0])
             for i in range(len(arr) - 1, index, -1):
@@ -52,6 +55,7 @@ def add_string(arr, var) -> list:
             return arr
     else:
         print('Ошибка: Некорректный индекс')
+
 
 # Добавление столбца
 def add_column(arr, var) -> list:
@@ -74,6 +78,7 @@ def add_column(arr, var) -> list:
     else:
         print('Ошибка: Некорректный индекс')
 
+
 # Удаление столбца
 def del_column(arr, var) -> list:
     index = int(input('Введите индекс удаляемого столбца: '))
@@ -91,10 +96,11 @@ def del_column(arr, var) -> list:
     else:
         print('Ошибка: Некорректный индекс')
 
+
 # Удаление строки
 def del_string(arr, var) -> list:
     index = int(input('Введите индекс удаляемой строки: '))
-    if 0 <= index < len(arr): # Проверка на некорректный индекс
+    if 0 <= index < len(arr):  # Проверка на некорректный индекс
         if var == 1:
             for i in range(index, len(arr) - 1):
                 arr[i] = arr[i + 1]
@@ -106,6 +112,7 @@ def del_string(arr, var) -> list:
     else:
         print('Ошибка: Некорректный индекс')
 
+
 # Поиск строки с максимальным средне арифмитическим
 def max_avarage_search(arr) -> list:
     max_avg = arr[0]
@@ -113,6 +120,7 @@ def max_avarage_search(arr) -> list:
         if mean(i) > mean(max_avg):
             max_avg = i
     return max_avg
+
 
 # Свап строк с максимальным и минимальным количеством нулей
 def under_zero_min_max_strings_swap(arr) -> list:
@@ -131,6 +139,7 @@ def under_zero_min_max_strings_swap(arr) -> list:
     arr[max_index], arr[min_index] = arr[min_index], arr[max_index]
     return arr
 
+
 # Свап столбцов с максимальной и минимальной суммой элементов
 def max_min_element_sum_column_swap(arr):
     columns = dict.fromkeys(range(len(arr[0])), 0)
@@ -143,6 +152,7 @@ def max_min_element_sum_column_swap(arr):
         i[max_column], i[min_column] = i[min_column], i[max_column]
     return arr
 
+
 # Поиск столбца с максимальным количеством нулей
 def max_zero_column(arr) -> int:
     columns = dict.fromkeys(range(len(arr[0])), 0)
@@ -151,6 +161,7 @@ def max_zero_column(arr) -> int:
             if v == 0:
                 columns[j] += 1
     return max(columns, key=columns.get)
+
 
 # Меню
 def menu_print() -> None:
@@ -167,7 +178,8 @@ def menu_print() -> None:
     print('9 - Переставить местами столбцы с максимальной и минимальной суммой элементов')
     print('10 - Вывести текущую матрицу')
 
-counter = 0 # Счетчик операций
+
+counter = 0  # Счетчик операций
 # Первая инициализация списка
 print('- Введите матрицу -')
 arr = matrix_init()
@@ -178,14 +190,14 @@ while True:
     if counter % 5 == 0:
         menu_print()
 
-    command = int(input('Введите номер команды: ')) # Приглашение ввода
-    counter += 1 # Счетчик количества введеных команд
+    command = int(input('Введите номер команды: '))  # Приглашение ввода
+    counter += 1  # Счетчик количества введеных команд
 
-    if command == 0: # Выйти из программы
+    if command == 0:  # Выйти из программы
         exit(0)
-    elif command == 1: # Ввод матрицы
+    elif command == 1:  # Ввод матрицы
         arr = matrix_init()
-    elif command == 2: # Добавление строки
+    elif command == 2:  # Добавление строки
         print('1 - Алгоритмическая реализация')
         print('2 - Реализация средствами языка')
         num = int(input('>>> '))
@@ -193,7 +205,7 @@ while True:
             add_string(arr, num)
         else:
             print('Ошибка! Нет такого варианта')
-    elif command == 3: # Удаление строки
+    elif command == 3:  # Удаление строки
         print('1 - Алгоритмическая реализация')
         print('2 - Реализация средствами языка')
         num = int(input('>>> '))
@@ -201,7 +213,7 @@ while True:
             del_string(arr, num)
         else:
             print('Ошибка! Нет такого варианта')
-    elif command == 4: # Добавление столбца
+    elif command == 4:  # Добавление столбца
         print('1 - Алгоритмическая реализация')
         print('2 - Реализация средствами языка')
         num = int(input('>>> '))
@@ -209,7 +221,7 @@ while True:
             add_column(arr, num)
         else:
             print('Ошибка! Нет такого варианта')
-    elif command == 5: # Удаление столбца
+    elif command == 5:  # Удаление столбца
         print('1 - Алгоритмическая реализация')
         print('2 - Реализация средствами языка')
         num = int(input('>>> '))
@@ -217,18 +229,18 @@ while True:
             del_column(arr, num)
         else:
             print('Ошибка! Нет такого варианта')
-    elif command == 6: # Поиска строки с максимальным средне арифметическим
+    elif command == 6:  # Поиска строки с максимальным средне арифметическим
         print(f'Максимальное среднее арифметическое {max_avarage_search(arr)}')
-    elif command == 7: # Свап строк с максимальным и минимальным количеством отриц. элементов
+    elif command == 7:  # Свап строк с максимальным и минимальным количеством отриц. элементов
         arr = under_zero_min_max_strings_swap(arr)
         print('Теперь ваша матрица:')
         matrix_print(arr)
-    elif command == 8: # Вывод номера столбца с максимальным количеством нулей
+    elif command == 8:  # Вывод номера столбца с максимальным количеством нулей
         print(f'Столбец с максимальным количеством нулей: {max_zero_column(arr) + 1}')
-    elif command == 9: # Свап столбцов с максимальной и минимальной суммой элементов
+    elif command == 9:  # Свап столбцов с максимальной и минимальной суммой элементов
         arr = max_min_element_sum_column_swap(arr)
         print('Теперь ваша матрица:')
         matrix_print(arr)
-    elif command == 10: # Вывод матрицы
+    elif command == 10:  # Вывод матрицы
         print('Теперь ваша матрица:')
         matrix_print(arr)

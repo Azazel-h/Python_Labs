@@ -1,6 +1,9 @@
 from math import factorial
+
+
 def func(x, n) -> float:
     return (x ** n) / factorial(n)
+
 
 x = float(input('Введите X: '))
 EPS = float(input('Введите эпсилон: '))
