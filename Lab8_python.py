@@ -29,7 +29,7 @@ def matrix_init() -> list:
     for i in range(n):
         new = list(map(int, input(f'Введите строку №{i + 1} через пробел: ').split()))
         while len(new) != m:
-            print('Ошибка! Указанное количество элементов не соответсвует данному')
+            print('Ошибка! Указанное количество элементов не соответствует данному')
             new = list(map(int, input(f'Введите строку №{i + 1} через пробел: ').split()))
         arr.append(new)
     return arr
@@ -39,18 +39,17 @@ def matrix_init() -> list:
 def add_string(arr, var) -> list:
     index = int(input('Введите индекс для вставки строки: '))
     if 0 <= index <= len(arr):  # Проверка на некорректный индекс
-        new = []
         new = list(map(int, input(f'Введите новую строку через пробел: ').split()))
         while len(new) != len(arr[0]):
-            print('Ошибка! Указанное количество элементов не соответсвует данному')
-            new = list(map(int, input(f'Введите строку №{index + 1} через пробел: ').split()))
-        if var == 1:
-            arr += [0] * len(arr[0])
-            for i in range(len(arr) - 1, index, -1):
+            print('Ошибка! Указанное количество элементов не соответствует данному')
+            new = list(map(int, input(f'Введите строку новую через пробел: ').split()))
+        if var == 1:  # Алгоритмическая реализация
+            arr.append([0] * len(arr[0]))  # Добавим пустую строку
+            for i in range(len(arr) - 1, index, -1):  # Сдвинем ее в нужное место
                 arr[i] = arr[i - 1]
-            arr[index] = new
+            arr[index] = new  # Присвоим элементы
             return arr
-        elif var == 2:
+        elif var == 2:  # Реализация средствами языка
             arr.insert(index, new)
             return arr
     else:
@@ -64,14 +63,14 @@ def add_column(arr, var) -> list:
         new = []
         for j in range(len(arr)):
             new.append(int(input(f'Введите элемент столбца №{j + 1}: ')))
-        if var == 1:
+        if var == 1:  # Алгоритмическая реализация
             for i in range(len(arr)):
-                arr[i] += [0]
-                for j in range(len(arr[0]) - 1, index, -1):
+                arr[i] += [0]  # Добавим пустой столбец
+                for j in range(len(arr[0]) - 1, index, -1):  # Сдвинем его в нужное место
                     arr[i][j] = arr[i][j - 1]
-                arr[i][index] = new[i]
+                arr[i][index] = new[i]  # Присвоим нужные значения
             return arr
-        elif var == 2:
+        elif var == 2:  # Реализация средствами языка
             for i in range(len(arr)):
                 arr[i].insert(index, new[i])
             return arr
@@ -83,13 +82,13 @@ def add_column(arr, var) -> list:
 def del_column(arr, var) -> list:
     index = int(input('Введите индекс удаляемого столбца: '))
     if 0 <= index < len(arr):  # Проверка на некорректный индекс
-        if var == 1:
+        if var == 1:  # Алгоритмическая реализация
             for i in range(len(arr)):
-                for j in range(index, len(arr[0]) - 1):
+                for j in range(index, len(arr[0]) - 1):  # Пройдемся по столбцам с конца до нужного и сместим их
                     arr[i][j] = arr[i][j + 1]
-                del arr[i][-1]
+                del arr[i][-1]  # Удалим последний столбец
             return arr
-        elif var == 2:
+        elif var == 2:  # Реализация средствами языка
             for i in range(len(arr)):
                 del arr[i][index]
             return arr
@@ -101,12 +100,12 @@ def del_column(arr, var) -> list:
 def del_string(arr, var) -> list:
     index = int(input('Введите индекс удаляемой строки: '))
     if 0 <= index < len(arr):  # Проверка на некорректный индекс
-        if var == 1:
+        if var == 1: # Алгоритмическая реализация
             for i in range(index, len(arr) - 1):
                 arr[i] = arr[i + 1]
             del arr[-1]
             return arr
-        elif var == 2:
+        elif var == 2: # Реализация средствами языка
             del arr[index]
             return arr
     else:
@@ -119,7 +118,7 @@ def max_avarage_search(arr) -> list:
     for i in arr:
         if mean(i) > mean(max_avg):
             max_avg = i
-    return max_avg
+    return mean(max_avg)
 
 
 # Свап строк с максимальным и минимальным количеством нулей
@@ -153,14 +152,14 @@ def max_min_element_sum_column_swap(arr):
     return arr
 
 
-# Поиск столбца с максимальным количеством нулей
-def max_zero_column(arr) -> int:
+# Определение количества нулей в столбцах
+def zero_column(arr) -> dict:
     columns = dict.fromkeys(range(len(arr[0])), 0)
     for i in arr:
         for j, v in enumerate(i):
             if v == 0:
                 columns[j] += 1
-    return max(columns, key=columns.get)
+    return columns
 
 
 # Меню
@@ -184,14 +183,14 @@ counter = 0  # Счетчик операций
 print('- Введите матрицу -')
 arr = matrix_init()
 
-# Бесконечный цикл воода команд
+# Бесконечный цикл ввода команд
 while True:
     # Вывод меню
     if counter % 5 == 0:
         menu_print()
 
     command = int(input('Введите номер команды: '))  # Приглашение ввода
-    counter += 1  # Счетчик количества введеных команд
+    counter += 1  # Счетчик количества введенных команд
 
     if command == 0:  # Выйти из программы
         exit(0)
@@ -230,17 +229,34 @@ while True:
         else:
             print('Ошибка! Нет такого варианта')
     elif command == 6:  # Поиска строки с максимальным средне арифметическим
-        print(f'Максимальное среднее арифметическое {max_avarage_search(arr)}')
+        if len(arr) > 0:
+            print(f'Максимальное среднее арифметическое {max_avarage_search(arr)}')
+        else:
+            print('Ошибка: Матрица пустая')
     elif command == 7:  # Свап строк с максимальным и минимальным количеством отриц. элементов
-        arr = under_zero_min_max_strings_swap(arr)
-        print('Теперь ваша матрица:')
-        matrix_print(arr)
-    elif command == 8:  # Вывод номера столбца с максимальным количеством нулей
-        print(f'Столбец с максимальным количеством нулей: {max_zero_column(arr) + 1}')
+        if len(arr) > 0:
+            arr = under_zero_min_max_strings_swap(arr)
+            print('Теперь ваша матрица:')
+            matrix_print(arr)
+        else:
+            print('Ошибка: Матрица пустая')
+    elif command == 8:
+        if len(arr) > 0: # Вывод номера столбца с максимальным количеством нулей
+            columns = zero_column(arr)
+            max_index = max(columns, key=columns.get)
+            if columns[max_index] > 0:  # Проверим были ли вообще нули
+                print(f'Столбец с максимальным количеством нулей: {max_index + 1}')
+            else:
+                print('Не обнаружено нулевых элементов')
+        else:
+            print('Ошибка: Матрица пустая')
     elif command == 9:  # Свап столбцов с максимальной и минимальной суммой элементов
-        arr = max_min_element_sum_column_swap(arr)
-        print('Теперь ваша матрица:')
-        matrix_print(arr)
+        if len(arr) > 0:
+            arr = max_min_element_sum_column_swap(arr)
+            print('Теперь ваша матрица:')
+            matrix_print(arr)
+        else:
+            print('Ошибка: Матрица пустая')
     elif command == 10:  # Вывод матрицы
         print('Теперь ваша матрица:')
         matrix_print(arr)
