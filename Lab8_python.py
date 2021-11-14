@@ -228,12 +228,12 @@ while True:
             del_column(arr, num)
         else:
             print('Ошибка! Нет такого варианта')
-    elif command == 6:  # Поиска строки с максимальным средне арифметическим
+    elif command == 6:  #  Поиска строки с максимальным средне арифметическим
         if len(arr) > 0:
             print(f'Максимальное среднее арифметическое {max_avarage_search(arr)}')
         else:
             print('Ошибка: Матрица пустая')
-    elif command == 7:  # Свап строк с максимальным и минимальным количеством отриц. элементов
+    elif command == 7:  #  Свап строк с максимальным и минимальным количеством отриц. элементов
         if len(arr) > 0:
             arr = under_zero_min_max_strings_swap(arr)
             print('Теперь ваша матрица:')
@@ -241,7 +241,7 @@ while True:
         else:
             print('Ошибка: Матрица пустая')
     elif command == 8:
-        if len(arr) > 0: # Вывод номера столбца с максимальным количеством нулей
+        if len(arr) > 0: #  Вывод номера столбца с максимальным количеством нулей
             columns = zero_column(arr)
             max_index = max(columns, key=columns.get)
             if columns[max_index] > 0:  # Проверим были ли вообще нули
@@ -250,13 +250,13 @@ while True:
                 print('Не обнаружено нулевых элементов')
         else:
             print('Ошибка: Матрица пустая')
-    elif command == 9:  # Свап столбцов с максимальной и минимальной суммой элементов
+    elif command == 9:  #  Свап столбцов с максимальной и минимальной суммой элементов
         if len(arr) > 0:
             arr = max_min_element_sum_column_swap(arr)
             print('Теперь ваша матрица:')
             matrix_print(arr)
         else:
             print('Ошибка: Матрица пустая')
-    elif command == 10:  # Вывод матрицы
+    elif command == 10:  #  Вывод матрицы
         print('Теперь ваша матрица:')
         matrix_print(arr)
