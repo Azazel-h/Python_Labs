@@ -1,17 +1,34 @@
+# Найти максимальное значение над главной диагональю и минимальное - под
+# побочной диагональю.
+# Булгаков Арсений Сергеевич ИУ7-16Б
+
+# Импортируем самописные функции проверки и создания матрицы по формуле
 from Functions import *
 
-D = list(map(int, input('Введите элементы массива D через пробел: ').split()))
-F = list(map(int, input('Введите элементы массива F через пробел: ').split()))
-arr = create_matrix(D, F)
-print_matrix(arr)
+print('Введите матрицу с минимальной размерностью 2 * 2')
+arr = matrix_init() # Вводим матрицу используя самописную функцию
 
-main = []
-sub = []
-for i in range(len(arr)):
-    for j in range(len(arr[i]) - 1, i, -1):
-        main.append(arr[i][j])
-print(f'MAX: {max(main):.5f}')
-for i in range(len(arr)):
-    for j in range(len(arr[i]) - i, len(arr[i])):
-        sub.append(arr[i][j])
-print(f'MIN: {min(sub):.5f}')
+while not (len(arr[0]) > 1 and len(arr) > 1): # Проверяем размер матрицы
+    print('Ошибка! - Матрица слишком мала')
+    arr = matrix_init()
+
+print_matrix(arr) # Выводим матрицу используя самописную функцию
+
+
+above_main = arr[0][0] # Массив элементов над главной диагональю
+under_sub = arr[1][len(arr) - 1] # Массив элементов под побочной диагональю
+
+# Получаем элементы над главной диагональю
+for i in range(len(arr)): # Идем по по строкам
+    for j in range(len(arr[i]) - 1, i, -1): # В строке идем с конца и до индекса строки не включая
+        if arr[i][j] > above_main:
+            above_main = arr[i][j]
+
+# Получаем элементы под побочной диагональю
+for i in range(len(arr)): # Идем по по строкам
+    for j in range(len(arr[i]) - i, len(arr[i])): # В строке идем с длинны строки - индекс строки и до конца
+        if arr[i][j] < under_sub:
+            under_sub = arr[i][j]
+
+print(f'MAX: {above_main:.5f}')  # Выводим максимум
+print(f'MIN: {under_sub:.5f}')  # Выводим минимум
