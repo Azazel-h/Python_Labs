@@ -46,4 +46,4 @@ while i > y:
     print('Ошибка! - i > y')
     i = int(input('Введите i для вывода среза: '))
 for j in arr:
-    print('Срез: ', j[i:])
+    print('Срез: ', *j[i:])

@@ -41,14 +41,14 @@ for i in arr:
         L.append(counter)  # Добавляем количество в L
     else:
         # Если положительных чисел не было в стркое, добовляем пустоту
-        AV.append('')
-        L.append('')
+        AV.append('-')
+        L.append('-')
 
 # Выводим матрицу + 2 колонки AV и L
-print('MATRIX    ' + ' ' * 10 * (len(arr) - 1) + ' ' * 13 + 'AV' + ' ' * 6 + 'L')
+print('MATRIX' + (len(arr[0]) * 10  - len('MATRIX')) * ' ' + f'{"AV":>15}{"L":>4}')
 for i, avg, l in zip(arr, AV, L):
     # Выводим строку
     for num in i:
-        print(f'{num:>10.5f}', end=' ')
+        print(f'{num:>10.5f}', end='')
     # Выводим элементы соответствующие строке из AV и L
-    print(f'{avg:>15.5f}{l:>4}' if avg else f'{avg:>10}{l:>4}')
+    print(f'{avg:>15.5f}{l:>4}' if (avg != '-') else f'{avg:>15}{l:>4}')

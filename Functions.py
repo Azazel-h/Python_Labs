@@ -17,15 +17,15 @@ def validation(inp, type):
         # Сюда лучше не смотреть, без регулярных выражений слишком страшно
         if validated_inp.isdigit():
             return float(validated_inp)
-        elif ('.' in validated_inp) or ('e-' in validated_inp) or ('e+' in validated_inp) or ('-' in validated_inp) or ('+' in validated_inp):
+        elif '.' in validated_inp or 'e-' in validated_inp or 'e+' in validated_inp or '-' in validated_inp:
             if "." in validated_inp and validated_inp[0:validated_inp.index(".")].isdigit() \
                     and validated_inp[validated_inp.index(".") + 1:].isdigit():
                 return float(validated_inp)
-            elif (validated_inp[0] == "-" or validated_inp[0] == "+") and "." in validated_inp \
+            elif validated_inp[0] == "-" and "." in validated_inp \
                     and validated_inp[1:validated_inp.index(".")].isdigit() \
                     and validated_inp[validated_inp.index(".") + 1::].isdigit():
                 return float(validated_inp)
-            elif (validated_inp[0] == "-" or validated_inp[0] == "+") and validated_inp[1::].isdigit():
+            elif validated_inp[0] == "-" and validated_inp[1::].isdigit():
                 return float(validated_inp)
             elif ("e-" in validated_inp or "e+" in validated_inp) and \
                     validated_inp[validated_inp.index("e") + 2::].isdigit():
@@ -48,7 +48,7 @@ def validation(inp, type):
 # Проверка массива
 def array_validation(arr, type):
     for i in arr:
-        if not validation(i, type) and not '0' in str(validation(i, type))[:2]:
+        if not validation(i, type) and str(validation(i, type))[0] != '0':
             print(f'Ошибка! - Все значения должны быть типа {type}')
             return False
     return list(map(type, arr))
