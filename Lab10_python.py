@@ -64,23 +64,44 @@ def better_N(var, N, EPS, start, end):
         print('Заданная точность не достигнута, выполнение программы прервано, т.к. было слишком долгим')
     else:
         print(f'Заданная точность для метода {"срединных перпендикуляров" if var == 1 else "парабол"} достигнута при N = {N}')
-        print('Точность:', riemann_sum(N, start, end) if var == 1 else simpsons_rule(N, start, end))
+        print('Значение интеграла:', riemann_sum(N, start, end) if var == 1 else simpsons_rule(N, start, end))
 
-start = validation(input('Введите начало отрезка: '), float)
-end = validation(input('Введите конец отрезка: '), float)
+def start_end_inp():
+    start = validation(input('Введите начало отрезка: '), float)
+    while str(start)[0] == 'F':
+        print(f'Ошибка! - Введите значение типа {float}')
+        start = validation(input('Введите начало отрезка: '), float)
+
+    end = validation(input('Введите конец отрезка: '), float)
+    while str(end)[0] == 'F':
+        print(f'Ошибка! - Введите значение типа {float}')
+        end = validation(input('Введите конец отрезка: '), float)
+
+    return start, end
+
+start, end = start_end_inp()
 while start > end:
     print('Ошибка: Конец отрезка не может быть меньше его начала')
-    start = validation(input('Введите начало отрезка: '), float)
-    end = validation(input('Введите конец отрезка: '), float)
+    start, end = start_end_inp()
+
+while start == end:
+    print('Ошибка: Начало и конец не должны совпадать')
+    start, end = start_end_inp()
 
 N1 = validation(input('Введите количество участков разбиения N1: '), int)
-while N1 == 0:
-    print('Ошибка: Количество участков всегда > 0')
+while not N1:
+    if str(N1)[0] == 'F':
+        print(f'Ошибка: Требуется значения типа {int}')
+    else:
+        print('Ошибка: Количество участков всегда > 0')
     N1 = validation(input('Введите количество участков разбиения N1: '), int)
 
 N2 = validation(input('Введите количество участков разбиения N2: '), int)
-while N2 == 0:
-    print('Ошибка: Количество участков всегда > 0')
+while not N2:
+    if str(N2)[0] == 'F':
+        print(f'Ошибка: Требуется значения типа {int}')
+    else:
+        print('Ошибка: Количество участков всегда > 0')
     N2 = validation(input('Введите количество участков разбиения N2: '), int)
 
 real_integral = F(end) - F(start)
