@@ -1,2 +1,2 @@
-## BMSTU First Semester labs (In python)
+## BMSTU labs
 > Feel free to use it :D. GLHF
