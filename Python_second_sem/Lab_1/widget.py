@@ -2,7 +2,6 @@ import sys
 import math
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QDialog
-from PyQt6.uic.properties import QtCore
 
 from form import Ui_MainWindow
 from about import Ui_Dialog
