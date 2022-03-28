@@ -1,0 +1,1 @@
+CMakeLists.txt not found in /Users/azazel/Development/BMSTU_Labs/iu7-cprog-labs-2022-bulgakovarseniy Select CMakeLists.txt
